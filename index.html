@@ -1,149 +1,49 @@
 <!DOCTYPE html>
-<html = style="height: 100%;">
-  <head>
-    <title>PressCorps. WX Map</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="scripts/leaflet.css">
-    <script src="scripts/leaflet.js"></script>
-	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-     crossorigin=""/>
-	 <!-- Make sure you put this AFTER Leaflet's CSS -->
- <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-     crossorigin=""></script>
-  </head>
-  
-  <body style="height: 100%;margin: 0;">
-    <div id="map" style="width: 100%; height: 100%; background: #a7aea9;"></div>
-    <script type="text/javascript">
-  //Creating the Map files found https://foxholestats.com/tiles/worldmap_warapi.jpg-tiles/2_3_3.jpg
-    var map = L.map('map').setView([0, 0], 2);
-    L.tileLayer('https://foxholestats.com/tiles/worldmap_warapi.jpg-tiles/{z}_{x}_{y}.jpg', {
-      continuousWorld: false,
-      noWrap: true,  
-      minZoom: 2,
-      maxZoom: 5,
-    }).addTo(map);
-  //Coordinate Finder
-    var marker = L.marker([0, 0], {
-      draggable: true,
-    }).addTo(map);
-    marker.bindPopup('LatLng Marker').openPopup();
-    marker.on('dragend', function(e) {
-      marker.getPopup().setContent(marker.getLatLng().toString()).openOn(map);
-    });
-	//Icons
-	var clear = L.icon({
-		iconUrl: 'https://drive.google.com/uc?id=1BFCSMgT9FVCblrhAf7hX4sgLUNaF0QhZ&export=download',
-		iconRetinaUrl: 'https://drive.google.com/uc?id=1BFCSMgT9FVCblrhAf7hX4sgLUNaF0QhZ&export=download',
-		//shadowUrl: 'https://drive.google.com/uc?id=1BFCSMgT9FVCblrhAf7hX4sgLUNaF0QhZ&export=download',
-		iconSize: [25, 25],
-		iconAnchor: [12, 41],
-		popupAnchor: [1,-34],
-		tooltopAnchor: [16, -28],
-		//shadowSize: [41,41]
-	});
-	var windy = L.icon({
-		iconUrl: 'https://drive.google.com/uc?id=1pSF-_qFIRvjIoU4KbtJCT9Q0r3PCxaBp&export=download',
-		iconRetinaUrl: 'https://drive.google.com/uc?id=1pSF-_qFIRvjIoU4KbtJCT9Q0r3PCxaBp&export=download',
-		//shadowUrl: 'https://drive.google.com/uc?id=1pSF-_qFIRvjIoU4KbtJCT9Q0r3PCxaBp&export=download',
-		iconSize: [25, 25],
-		iconAnchor: [12, 41],
-		popupAnchor: [1,-34],
-		tooltopAnchor: [16, -28],
-		//shadowSize: [41,41]
-	});
-	var rain = L.icon({
-		iconUrl: 'https://drive.google.com/uc?id=1qoeaHzxAIMo90RPmCBFqpm3Zpe5DTe0-&export=download',
-		iconRetinaUrl: 'https://drive.google.com/uc?id=1qoeaHzxAIMo90RPmCBFqpm3Zpe5DTe0-&export=download',
-		//shadowUrl: 'https://drive.google.com/uc?id=1qoeaHzxAIMo90RPmCBFqpm3Zpe5DTe0-&export=download',
-		iconSize: [25, 25],
-		iconAnchor: [12, 41],
-		popupAnchor: [1,-34],
-		tooltopAnchor: [16, -28],
-		//shadowSize: [41,41]
-	});
-	var rain_storm = L.icon({
-		iconUrl: 'https://drive.google.com/uc?id=1F7Orf0C-Pv8OV1aG31nJH0ue3RfYeRQi&export=download',
-		iconRetinaUrl: 'https://drive.google.com/uc?id=1F7Orf0C-Pv8OV1aG31nJH0ue3RfYeRQi&export=download',
-		//shadowUrl: 'https://drive.google.com/uc?id=1F7Orf0C-Pv8OV1aG31nJH0ue3RfYeRQi&export=download',
-		iconSize: [25, 25],
-		iconAnchor: [12, 41],
-		popupAnchor: [1,-34],
-		tooltopAnchor: [16, -28],
-		//shadowSize: [41,41]
-	});
-	var snow = L.icon({
-		iconUrl: 'https://drive.google.com/uc?id=1Akwt8PqB_DwHoz2j5sPLfi7Magty9Ls1&export=download',
-		iconRetinaUrl: 'https://drive.google.com/uc?id=1Akwt8PqB_DwHoz2j5sPLfi7Magty9Ls1&export=download',
-		//shadowUrl: 'https://drive.google.com/uc?id=1Akwt8PqB_DwHoz2j5sPLfi7Magty9Ls1&export=download',
-		iconSize: [25, 25],
-		iconAnchor: [12, 41],
-		popupAnchor: [1,-34],
-		tooltopAnchor: [16, -28],
-		//shadowSize: [41,41]
-	});
-	var snow_storm = L.icon({
-		iconUrl: 'https://drive.google.com/uc?id=1vMdrCqH9N8CJh1v-m4z9YriUrnJ2Zk1P&export=download',
-		iconRetinaUrl: 'https://drive.google.com/uc?id=1vMdrCqH9N8CJh1v-m4z9YriUrnJ2Zk1P&export=download',
-		//shadowUrl: 'https://drive.google.com/uc?id=1vMdrCqH9N8CJh1v-m4z9YriUrnJ2Zk1P&export=download',
-		iconSize: [25, 25],
-		iconAnchor: [12, 41],
-		popupAnchor: [1,-34],
-		tooltopAnchor: [16, -28],
-		//shadowSize: [41,41]
-	});
-	
-  //Markers
-  //var UNIQUE ID = L.marker([X VALUE, Y VALUE]).bindPopup('PLACE NAME').addTo(map)
-	var Nevish_Line = L.marker([52.48278, -114.609375],{icon: clear}).bindPopup('<b>Nevish Line</b>').addTo(map);
-	var Basin_Sionnach = L.marker([78.061989, -0.703125],{icon: clear}).bindPopup('<b>Basin Sionnach</b>').addTo(map);
-	var Howl_County = L.marker([71.187754, 38.320313],{icon: rain}).bindPopup('<b>Howl County</b>').addTo(map);
-	
-	//polygons
-	var BasinSionnach = L.polygon([
-    [82.402423, -13.710938],
-    [82.402423, 13.007813],
-    [78.836065, 24.609375],
-	[73.726595, 12.304688],
-	[73.82482, -13.007812],
-	[78.836065, -25.664063]
-	]).addTo(map);
-	BasinSionnach.setStyle({fillColor: '#ff9500'});
-	
-	//image overlay
-	var imageUrl = 'https://foxholestats.com/images/WorldMapControl.webp',
-   imageBounds = [[82.6, -180], [-82.6, 180]];
-L.imageOverlay(imageUrl, imageBounds).addTo(map);
+<html>
+<head>
+  <title>leaflet-map-simple</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
 
-	
-	
-	//Marker Groups
-	var Regions = L.layerGroup([Nevish_Line,Basin_Sionnach,Howl_County]);
-	var mg_towers = L.layerGroup([Howl_County]);
-	//var Frontlines = L.layerGroup([L.imageOverlay]);
-	
-	//Marker Overlay
-	var overlays={
-    "Regions" : Regions,
-    //"Towers" : mg_towers,
-	//"Front Lines" : Frontlines,
-    }
-	//GROUP CONTROLS
-	L.control.layers(null, overlays).addTo(map);
-	
-	
-	
-	
-	
-	
+  <!-- Load Leaflet code library: see https://leafletjs.com/download.html -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css" integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14=" crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js" integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg=" crossorigin=""></script>
 
+  <!-- Position the map and title with Cascading Style Sheet (CSS) -->
+  <style>
+  body { margin:0; padding:0; }
+  #map { position: absolute; top:0; bottom:0; right:0; left:0; }
+  #map-title { position: relative; margin-top: 10px; margin-left: 50px; float: left; background: white; border: 2px solid rgba(0,0,0,0.2); padding: 6px 8px; font-family: Helvetica; font-weight: bold; font-size: 24px; z-index: 800; }
+  </style>
+</head>
+<body>
 
+  <!-- Display the map and title with HTML division tags  -->
+  <div id="map-title">Leaflet Map Test</div>
+  <div id="map"></div>
 
+  <!-- Create the interactive map content with JavaScript (.js) -->
+  <script>
 
+  /* Set up the initial map center and zoom level */
+  var map = L.map('map', {
+    center: [41.77, -72.69], // EDIT coordinates to re-center map
+    zoom: 12,  // EDIT from 1 (zoomed out) to 18 (zoomed in)
+    scrollWheelZoom: false
+  });
 
-    </script>
-  </body>
+  /* display basemap tiles -- see others at https://leaflet-extras.github.io/leaflet-providers/preview/ */
+  L.tileLayer(
+    'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+      attribution: '&copy; <a href="https://osm.org/copyright">\
+        OpenStreetMap</a> contributors, &copy;\
+        <a href="https://carto.com/attribution">CARTO</a>'
+  }).addTo(map);
+
+  /* Display a point marker with pop-up text */
+  L.marker([41.77, -72.69]).addTo(map) // EDIT marker coordinates
+  .bindPopup("Insert pop-up text here"); // EDIT pop-up text message
+
+  </script>
+</body>
 </html>
-
